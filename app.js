@@ -2,11 +2,17 @@ const pdContainer = document.getElementById("product");
 const pdName = document.getElementById("pdName");
 const pdQut = document.getElementById("pdQut");
 const addPd = document.getElementById("addPd");
+const clrAll = document.getElementById("clrAll");
 
 addPd.addEventListener("click", () => {
   const name = pdName.value;
   const qty = pdQut.value;
   displayProduct({ name, qty });
+});
+
+clrAll.addEventListener("click", () => {
+  localStorage.clear();
+  pdContainer.innerHTML = "";
 });
 
 const getLocal = () => {
@@ -19,7 +25,10 @@ const getLocal = () => {
 
 const setLocal = (data) => {
   let prevLcoal = getLocal();
-  let stringData = JSON.stringify([...prevLcoal, { ...data }]);
+  let stringData = JSON.stringify([
+    ...prevLcoal,
+    { ...data, id: prevLcoal.length + 1 },
+  ]);
   localStorage.setItem("cart", stringData);
 };
 
